@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Home</title>
+        <script type="text/javascript">
+            function buttonsRender(){
+                if(Request.arguments.authenticationStatus){
+                    document.getElementById("notAuth").style.visibility = "hidden";
+                    document.getElementById("auth").style.visibility = "show";
+                }else{
+                    document.getElementById("notAuth").style.visibility = "show";
+                    document.getElementById("auth").style.visibility = "hidden";
+                }
+            }
+        </script>
+    </head>
+
+    <body onload="buttonsRender">
+        <h1>Home Page</h1>
+        <h3>Authentication with Hashed Passwords</h3>
+        <h5>Your data is safe with us!!</h5>
+        <br>
+        <br>
+        <div class="notAuth">
+            <a href="/login">Sign In</a>
+            <a href="/newuser">Sign Up</a>
+        </div>
+        <div class="auth">
+            <a href="/logout">Logout</a>
+        </div>
+        
+    </body>
+</html>
