@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>New User</title>
+        <script type="text/javascript">
+            function register() {
+                var first = document.getElementById("first").value;
+                var last = document.getElementById("last").value;
+                var username = document.getElementById("username").value;
+                var email = document.getElementById("email").value;
+                var country = document.getElementById("country").value;
+                var password = document.getElementById("password").value;
+                var passwd = document.getElementById("password_check").value;
+
+                if(password != passwd){
+                    document.getElementById("output").innerHTML = "Passwords don't match.";
+                }else{
+                    document.getElementById("output").innerHTML = "";
+                    var dataToSend = {
+                        "first" : first,
+                        "last" : last,
+                        "username" : username,
+                        "email" : email,
+                        "nationality" : country,
+                        "password" : password
+                    };
+
+                    var request = new XMLHttpRequest();
+
+                    request.onreadystatechange = ()=>{
+                        if(request.status === 200 && request.readyState === 4){
+                            console.log(request.response);
+                            document.getElementById("output").innerHTML = request.response;
+                            if(request.response === "success"){
+                                window.location.href = "http://localhost:2000/login";
+                            }
+                        }
+                    }
+
+                    request.open("POST", "/newuser", false);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.send(JSON.stringify(dataToSend));
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <h2>New User Registration</h2>
+
+        <h4>First Name: </h4>
+        <input type="text" id="first">
+
+        <h4>Last Name: </h4>
+        <input type="text" id="last">
+
+        <h4>Username: </h4>
+        <input type="text" id="username">
+
+        <h4>Email Id: </h4>
+        <input type="text" id="email">
+
+        <h4>Country : </h4>
+        <input type="text" id="country">
+
+        <h4>Password: </h4>
+        <input type="password" id="password">
+
+        <h4>Comfirm Password: </h4>
+        <input type="password" id="password_check">
+
+        <button type="button" onclick="register()">Submit</button>
+
+        <div id="output">
+
+        </div>
+    </body>
+</html>
